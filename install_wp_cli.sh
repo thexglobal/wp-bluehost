@@ -50,6 +50,9 @@ TITLE="New WordPress Site"
 
 # wp core install --url="$DOMAIN" --title="$TITLE" --admin_user="$ADMIN_USER" --admin_password="$ADMIN_PASSWORD" --admin_email="$ADMIN_USER@$DOMAIN" --path="$WP_DIR"
 
+# Install the Theme
+wp theme install $DOMAIN_/theme.zip
+
 # echo "WordPress installation completed successfully!"
 # echo "Admin URL: http://$DOMAIN/wp-admin"
 # echo "Admin user: ${ADMIN_USER}"

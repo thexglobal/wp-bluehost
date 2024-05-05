@@ -9,20 +9,20 @@ if [ -z "$DOMAIN" ]; then
     exit 1
 fi
 
+# Function to retrieve data from 1Password
+retrieve_from_1password() {
+    local field_name=$1
+    local value=$(op read "op://dev/webovykontakt/${field_name}")
+    if [ $? -ne 0 ]; then
+        echo "Failed to retrieve ${field_name} for domain ${DOMAIN}"
+        exit 1
+    fi
+    echo "Successful to retrieve ${field_name} for domain ${DOMAIN}"
+}
+
 # retrieve - CLIENT_ID and CLIENT_SECRET from 1password
-CLIENT_ID=$(op read "op://Private/${DOMAIN}/client_id")
-if [ $? -ne 0 ]; then
-    echo "Failed to retrieve CLIENT_ID for domain ${DOMAIN}"
-    exit 1
-fi
-
-CLIENT_SECRET=$(op read "op://Private/${DOMAIN}/client_secret")
-if [ $? -ne 0 ]; then
-    echo "Failed to retrieve CLIENT_SECRET for domain ${DOMAIN}"
-    exit 1
-fi
-
-echo "CLIENT_ID and CLIENT_SECRET retrieved successfully."
+CLIENT_ID=$(retrieve_from_1password "client_id")
+CLIENT_SECRET=$(retrieve_from_1password "client_secret")
 
 WP_DIR="/home2/simonho4/public_html/${DOMAIN_}"
 cd $WP_DIR

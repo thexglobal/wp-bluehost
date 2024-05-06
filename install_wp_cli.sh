@@ -21,7 +21,7 @@ fi
 DB_NAME="${PREFIX}_${DOMAIN_}"
 DB_PREFIX="wp_"
 DB_USER="${PREFIX}_${DOMAIN_}"
-DB_PASSWORD="hwcPv1xbZTTGme9J"
+DB_PASSWORD="x?~+JQ}vMI@x"
 # $(openssl rand -base64 12)  # Generating a random password for MySQL user
 # DB_HOST="localhost"  # Typical for many shared hosting environments; adjust if necessary
 
@@ -97,4 +97,16 @@ echo "Local folder: ${WP_DIR}"
 # echo "Local folder: ${WP_DIR}"
 # echo "Database name: ${DB_NAME}"
 # echo "Database user: ${DB_USER}"
+
+# Install and activate free plugins
+wp plugin install elementor --activate
+wp plugin install wpforms-lite --activate
+
+# Install and activate Elementor Pro if it exists
+ELEMENTOR_PRO_ZIP="elementor-pro-3.21.2.zip"
+if [[ -f "$ELEMENTOR_PRO_ZIP" ]]; then
+    wp plugin install $ELEMENTOR_PRO_ZIP --activate
+else
+    echo "Elementor Pro zip file does not exist at specified path: $ELEMENTOR_PRO_ZIP"
+fi
 

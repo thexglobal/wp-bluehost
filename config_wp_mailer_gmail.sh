@@ -62,6 +62,8 @@ fi
 REDIRECT_URI="https://${DOMAIN}/wp-admin/options-general.php?page=wp-mail-smtp"
 
 # JSON Configuration for WP Mail SMTP
+echo ${CLIENT_ID}
+echo ${CLIENT_SECRET}
 JSON_STRING=$(cat <<EOM
 {
     "mail": {
@@ -71,8 +73,8 @@ JSON_STRING=$(cat <<EOM
         "return_path": true
     },
     "gmail": {
-        "client_id": $CLIENT_ID,
-        "client_secret": $CLIENT_SECRET
+        "client_id": "$CLIENT_ID",
+        "client_secret": "$CLIENT_SECRET"
     }
 }
 EOM

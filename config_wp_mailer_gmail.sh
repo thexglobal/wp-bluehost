@@ -2,6 +2,7 @@
 
 DOMAIN=$1
 DOMAIN_="${DOMAIN//./_}"
+PREFIX="simonho4_"
 
 # Check if domain is provided
 if [ -z "$DOMAIN" ]; then
@@ -10,9 +11,9 @@ if [ -z "$DOMAIN" ]; then
 fi
 
 if [[ "$DOMAIN" == "simonholding.us" ]]; then
-    WP_DIR="/home2/simonho4/public_html"
+    WP_DIR="/home2/${PREFIX}/public_html"
 else
-    WP_DIR="/home2/simonho4/public_html/${DOMAIN}"
+    WP_DIR="/home2/${PREFIX}/public_html/${DOMAIN_}"
 fi
 
 cd $WP_DIR
@@ -20,7 +21,7 @@ cd $WP_DIR
 # Function to retrieve data from 1Password
 retrieve_from_1password() {
     local field_name=$1
-    local value=$(op read "op://Private/${DOMAIN}/${field_name}")
+    local value=$(op read "op://dev/${DOMAIN}/${field_name}")
     if [ $? -ne 0 ]; then
         echo "Failed to retrieve ${field_name} for domain ${DOMAIN}"
         exit 1
@@ -97,4 +98,3 @@ EOM
 # date.timezone = "America/Los_Angeles"
 
 # EOM
-

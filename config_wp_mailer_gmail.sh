@@ -2,7 +2,7 @@
 
 DOMAIN=$1
 DOMAIN_="${DOMAIN//./_}"
-PREFIX="simonho4_"
+PREFIX="simonho4"
 
 # Check if domain is provided
 if [ -z "$DOMAIN" ]; then

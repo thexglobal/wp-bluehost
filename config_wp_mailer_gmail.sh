@@ -71,13 +71,12 @@ JSON_STRING=$(cat <<EOM
         "return_path": true
     },
     "gmail": {
-        "client_id": "${CLIENT_ID}",
-        "client_secret": "${CLIENT_SECRET}"
+        "client_id": $CLIENT_ID,
+        "client_secret": $CLIENT_SECRET
     }
 }
 EOM
 )
-
 
 wp option update wp_mail_smtp "$JSON_STRING" --format=json
 

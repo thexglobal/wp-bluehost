@@ -59,6 +59,9 @@ fi
 # Update this path to the directory where your WordPress is installed
 
 # Configure WP Mail SMTP settings to use Gmail
+REDIRECT_URI="https://${DOMAIN}/wp-admin/options-general.php?page=wp-mail-smtp"
+
+# JSON Configuration for WP Mail SMTP
 JSON_STRING=$(cat <<EOM
 {
     "mail": {
@@ -67,21 +70,14 @@ JSON_STRING=$(cat <<EOM
         "mailer": "gmail",
         "return_path": true
     },
-    "smtp": {
-        "host": "smtp.gmail.com",
-        "port": "465",
-        "encryption": "ssl",
-        "auth": true,
-        "user": "your-email@example.com",
-        "pass": "your-email-password"
-    },
     "gmail": {
         "client_id": "${CLIENT_ID}",
-        "client_secret": "${CLIENT_SECRET}"
+        "client_secret": "${CLIENT_SECRET}",
     }
 }
 EOM
 )
+
 wp option update wp_mail_smtp "$JSON_STRING" --format=json
 
 echo "WP Mail SMTP configuration updated successfully."
@@ -100,8 +96,8 @@ EOM
 # EOM
 
 # Insert the timezone setting before the "stop editing" line
-sed -i "/^\/\* That's all, stop editing! Happy publishing. \*\//i \\
-\\
-date_default_timezone_set('America\/Los_Angeles');\\
-\\
-" wp-config.php
+# sed -i "/^\/\* That's all, stop editing! Happy publishing. \*\//i \\
+# \\
+# date_default_timezone_set('America\/Los_Angeles');\\
+# \\
+# " wp-config.php

@@ -32,9 +32,6 @@ retrieve_from_1password() {
 # CLIENT_ID=$(retrieve_from_1password "client_id")
 # CLIENT_SECRET=$(retrieve_from_1password "client_secret")
 
-CLIENT_ID="713085841318-m3r87rbot3onafvumjuhdg2dtjbrs39k.apps.googleusercontent.com"
-CLIENT_SECRET="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"
-
 # Check if WP-CLI is installed
 if ! command -v wp &> /dev/null
 then

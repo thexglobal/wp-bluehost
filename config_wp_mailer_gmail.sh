@@ -98,3 +98,10 @@ EOM
 # date.timezone = "America/Los_Angeles"
 
 # EOM
+
+# Insert the timezone setting before the "stop editing" line
+sed -i "/^\/\* That's all, stop editing! Happy publishing. \*\//i \\
+\\
+date_default_timezone_set('America\/Los_Angeles');\\
+\\
+" wp-config.php

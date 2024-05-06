@@ -9,10 +9,18 @@ if [ -z "$DOMAIN" ]; then
     exit 1
 fi
 
+if [[ "$DOMAIN" == "simonholding.us" ]]; then
+    WP_DIR="/home2/simonho4/public_html"
+else
+    WP_DIR="/home2/simonho4/public_html/${DOMAIN}"
+fi
+
+cd $WP_DIR
+
 # Function to retrieve data from 1Password
 retrieve_from_1password() {
     local field_name=$1
-    local value=$(op read "op://dev/webovykontakt/${field_name}")
+    local value=$(op read "op://Private/${DOMAIN}/${field_name}")
     if [ $? -ne 0 ]; then
         echo "Failed to retrieve ${field_name} for domain ${DOMAIN}"
         exit 1
@@ -21,11 +29,11 @@ retrieve_from_1password() {
 }
 
 # retrieve - CLIENT_ID and CLIENT_SECRET from 1password
-CLIENT_ID=$(retrieve_from_1password "client_id")
-CLIENT_SECRET=$(retrieve_from_1password "client_secret")
+# CLIENT_ID=$(retrieve_from_1password "client_id")
+# CLIENT_SECRET=$(retrieve_from_1password "client_secret")
 
-WP_DIR="/home2/simonho4/public_html/${DOMAIN_}"
-cd $WP_DIR
+CLIENT_ID="713085841318-m3r87rbot3onafvumjuhdg2dtjbrs39k.apps.googleusercontent.com"
+CLIENT_SECRET="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"
 
 # Check if WP-CLI is installed
 if ! command -v wp &> /dev/null
@@ -78,6 +86,8 @@ EOM
 )
 wp option update wp_mail_smtp "$JSON_STRING" --format=json
 
+echo "WP Mail SMTP configuration updated successfully."
+
 # synchronize server and local machine timezone because OAuth relies on timestamp verification
 tee -a .htaccess <<EOM
 
@@ -85,5 +95,9 @@ php_value date.timezone "America/Los_Angeles"
 
 EOM
 
-echo "WP Mail SMTP configuration updated successfully."
+# tee -a /opt/cpanel/ea-php83/root/etc/php.ini <<EOM
+
+# date.timezone = "America/Los_Angeles"
+
+# EOM
 
